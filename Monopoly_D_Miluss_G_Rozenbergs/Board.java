@@ -9,6 +9,8 @@ import org.controlsfx.control.Notifications;
 import java.io.PrintStream;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextAreaBuilder;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -369,35 +371,35 @@ public class Board {
 		
 		//All of the chance objects
 		CommunityAndChance cc18 = new CommunityAndChance("Chance", "Advance to Go. Collect 200 Ventus.", 200, true, false, false, false, true, false);
-		CommunityAndChance cc19 = new CommunityAndChance("Chance", "Advance to Kino Rio. If you pass Go collect 200 Ventus.", 200, true, false, false, false, true, false);
-		CommunityAndChance cc20 = new CommunityAndChance("Chance", "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total 10 times the amount thrown.", 0, false, true, false, false, true, false);
-		CommunityAndChance cc21 = new CommunityAndChance("Chance", "Advance token to the nearest Transport and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 0, false, true, false, false, true, false);
-		CommunityAndChance cc22 = new CommunityAndChance("Chance", "Advance token to the nearest Transport and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 0, false, true, false, false, true, false);
+		//CommunityAndChance cc19 = new CommunityAndChance("Chance", "Advance to Kino Rio. If you pass Go collect 200 Ventus.", 200, true, false, false, false, true, false);
+		//CommunityAndChance cc20 = new CommunityAndChance("Chance", "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total 10 times the amount thrown.", 0, false, true, false, false, true, false);
+		//CommunityAndChance cc21 = new CommunityAndChance("Chance", "Advance token to the nearest Transport and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 0, false, true, false, false, true, false);
+		//CommunityAndChance cc22 = new CommunityAndChance("Chance", "Advance token to the nearest Transport and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 0, false, true, false, false, true, false);
 		CommunityAndChance cc23 = new CommunityAndChance("Chance", "Bank pays you dividend of 50 Venti.", 50, true, false, false, false, false, false);
 		CommunityAndChance cc24 = new CommunityAndChance("Chance", "Get out of Jail free.", 0, false, false, false, true, false, false);
 		CommunityAndChance cc25 = new CommunityAndChance("Chance", "Go back three spaces.", 0, false, false, false, false, true, false);
 		CommunityAndChance cc26 = new CommunityAndChance("Chance", "Go to Jail. Do not pass GO, do not collect 200 Ventus.", 0, false, false, true, false, true, false);
 		CommunityAndChance cc27 = new CommunityAndChance("Chance", "Make general repairs on all your property. For each house pay 25 Ventus, for each hotel pay 100 Ventus.", 0, false, true, false, false, false, true);
 		CommunityAndChance cc28 = new CommunityAndChance("Chance", "Pay poor tax of 15 Venti.", 15, false, true, false, false, false, false);
-		CommunityAndChance cc29 = new CommunityAndChance("Chance", "Take a trip to Turistu Vilcienins. If you pass Go, collect 200 Ventus.", 200, true, false, false, false, true, false);
-		CommunityAndChance cc30 = new CommunityAndChance("Chance", "Take a ride on the ferry. Advance token to Ventspils Osta.", 0, false, true, false, false, true, false);
+		//CommunityAndChance cc29 = new CommunityAndChance("Chance", "Take a trip to Turistu Vilcienins. If you pass Go, collect 200 Ventus.", 200, true, false, false, false, true, false);
+		//CommunityAndChance cc30 = new CommunityAndChance("Chance", "Take a ride on the ferry. Advance token to Ventspils Osta.", 0, false, true, false, false, true, false);
 		CommunityAndChance cc31 = new CommunityAndChance("Chance", "You have been elected Chairman of the Board. Pay each player 50 Ventus.", 50, true, true, false, false, false, false);
 		CommunityAndChance cc32 = new CommunityAndChance("Chance", "Your building loan matures. Receive 150 Ventus.", 150, true, false, false, false, false, false);
 		CommunityAndChance cc33 = new CommunityAndChance("Chance", "You have won a crossword competition. Collect 100 Ventus!", 100, true, false, false, false, false, false);
 		
 		AllChanceCards.add(cc18);
-		AllChanceCards.add(cc19);
-		AllChanceCards.add(cc20);
-		AllChanceCards.add(cc21);
-		AllChanceCards.add(cc22);
+		//AllChanceCards.add(cc19);
+		//AllChanceCards.add(cc20);
+		//AllChanceCards.add(cc21);
+		//AllChanceCards.add(cc22);
 		AllChanceCards.add(cc23);
 		AllChanceCards.add(cc24);
 		AllChanceCards.add(cc25);
 		AllChanceCards.add(cc26);
 		AllChanceCards.add(cc27);
 		AllChanceCards.add(cc28);
-		AllChanceCards.add(cc29);
-		AllChanceCards.add(cc30);
+		//AllChanceCards.add(cc29);
+		//AllChanceCards.add(cc30);
 		AllChanceCards.add(cc31);
 		AllChanceCards.add(cc32);
 		AllChanceCards.add(cc33);
@@ -463,6 +465,8 @@ public class Board {
 					if (result == result2) {
 						turnManager.current().setRollCounter(c2.getCornerID());
 						turnManager.current().setJailed(false);
+						turnManager.current().getBoardPiece().setTranslateX(xCoord[turnManager.current().getRollCounter()]);
+						turnManager.current().getBoardPiece().setTranslateY(yCoord[turnManager.current().getRollCounter()]);
 						
 						System.out.println("Wohoo, you got out of Jail!");
 						
@@ -470,6 +474,8 @@ public class Board {
 					else {
 						System.out.println("Ahh, better luck next roll!");
 						timesRolledInJail++;
+						turnManager.current().getBoardPiece().setTranslateX(xCoord[turnManager.current().getRollCounter()]);
+						turnManager.current().getBoardPiece().setTranslateY(yCoord[turnManager.current().getRollCounter()]);
 							
 						if (timesRolledInJail == maxDiceRolls) {
 							roll.setDisable(true);
@@ -520,6 +526,8 @@ public class Board {
 					tempCC.goToJail(turnManager.current());
 					roll.setDisable(true);
 					buyProperty.setDisable(true);
+					turnManager.current().getBoardPiece().setTranslateX(xCoord[turnManager.current().getRollCounter()]);
+					turnManager.current().getBoardPiece().setTranslateY(yCoord[turnManager.current().getRollCounter()]);
 				}
 				else if (tempCC.isJailFreeCard()) {
 					tempCC.jailFreeCard(turnManager.current());
@@ -592,6 +600,10 @@ public class Board {
 				}
 				else if (tempC.isGoToJail()) {
 					tempC.goToJail(turnManager.current());
+					roll.setDisable(true);
+					buyProperty.setDisable(true);
+					turnManager.current().getBoardPiece().setTranslateX(xCoord[turnManager.current().getRollCounter()]);
+					turnManager.current().getBoardPiece().setTranslateY(yCoord[turnManager.current().getRollCounter()]);
 				}
 				else if (tempC.isJailFreeCard()) {
 					tempC.jailFreeCard(turnManager.current());
@@ -984,6 +996,43 @@ public class Board {
 				
 				turns++;
 				turnLabel.setText("Turn: " + turns);
+				if (turns == 10) {
+					grid.setStyle(
+				            "-fx-background-image: url(" +
+				                    "'file:FadeBCG.jpg'" +
+				                "); " +
+				                "-fx-background-size: cover, auto;"	  	                
+				                );
+					Player winningPlayer = new Player();
+					for (Player player : plcr1.getAllPlayerList()) {
+						if (player.getMoney() > winningPlayer.getMoney()) {
+							winningPlayer = player;
+						}
+					}
+					Label winner = new Label("Player " + winningPlayer.getName() + " has won!");
+					Label newLabel = new Label("Press esc to exit to main menu");
+					FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.0), winner);
+					winner.setFont(Font.loadFont("file:MONOPOLY_INLINE.ttf",100));
+					winner.setTranslateX(600);
+					winner.setTranslateY(200);
+					fadeTransition.setFromValue(0.3);		
+					fadeTransition.setToValue(1.0);
+					fadeTransition.setAutoReverse(true);
+					fadeTransition.setCycleCount(Animation.INDEFINITE);
+					fadeTransition.play();
+					grid.getChildren().add(winner);
+					grid.getChildren().remove(roll);
+					grid.getChildren().remove(endTurn);
+					grid.getChildren().remove(buyProperty);
+					grid.getChildren().remove(payRent);
+					grid.getChildren().remove(sellProperty);
+					
+					
+					newLabel.setFont(Font.loadFont("file:MONOPOLY_INLINE.ttf",100));
+					newLabel.setTranslateX(500);
+					newLabel.setTranslateY(400);
+					grid.getChildren().add(newLabel);
+				}
 				
 				System.out.println(turnManager.current().getName() + " turn has started");
 				roll.setDisable(false);
